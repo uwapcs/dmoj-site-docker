@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+sh make_style.sh
+echo yes | python3 manage.py collectstatic
+python3 manage.py compilemessages
+python3 manage.py compilejsi18n
+
+/wait
+
+python3 manage.py migrate --noinput
+
+/usr/bin/supervisord -n
