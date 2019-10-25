@@ -10,10 +10,8 @@ jobs:
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
-        name: uwapcs/dmoj-site-docker/dmoj-site
-        # GitHub doesn't check username if you use an access token
-        username: unused
-        password: ${{ secrets.GITHUB_TOKEN }}
-        registry: docker.pkg.github.com
+        name: uwapcs/dmoj-site
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
         snapshot: true
         tag_names: true
