@@ -36,9 +36,9 @@ RUN pip3 install --no-cache-dir --no-cache-dir -U pip setuptools
 RUN pip3 install --no-cache-dir uwsgi
 
 # Get nodejs and install packages
-RUN wget -O- https://deb.nodesource.com/setup_8.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 RUN apt-get install -y nodejs
-RUN npm install -g --unsafe-perm=true phantomjs-prebuilt pleeease-cli sass
+RUN npm install -g --unsafe-perm=true phantomjs-prebuilt postcss-cli autoprefixer sass
 
 # Install app requirements before rest of code to be cache friendly
 COPY site/requirements.txt /site/
