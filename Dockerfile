@@ -36,7 +36,7 @@ RUN pip3 install --no-cache-dir --no-cache-dir -U pip setuptools
 RUN pip3 install --no-cache-dir uwsgi
 
 # Get nodejs and install packages
-RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get install -y nodejs
 RUN npm install -g --unsafe-perm=true phantomjs-prebuilt postcss-cli autoprefixer sass
 
