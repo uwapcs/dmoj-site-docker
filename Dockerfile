@@ -48,18 +48,18 @@ RUN pip3 install --no-cache-dir -r /site/requirements.txt
 COPY site /site
 
 # Install utility so we can easily use docker secrets in local_settings.py
-RUN pip install --no-cache-dir get-docker-secret
+RUN pip3 install --no-cache-dir get-docker-secret
 
 # Install recaptcha support
-RUN pip install --no-cache-dir django-recaptcha2
+RUN pip3 install --no-cache-dir "django-recaptcha2<1.4.0"
 
 # I don't know why these are here
-RUN pip install --no-cache-dir mysqlclient
-#RUN pip install --no-cache-dir "django_select2<7"
+RUN pip3 install --no-cache-dir mysqlclient
+#RUN pip3 install --no-cache-dir "django_select2<7"
 
 # Set up event server
 RUN npm install qu ws simplesets
-RUN pip install --no-cache-dir websocket-client
+RUN pip3 install --no-cache-dir websocket-client
 COPY websocket/config.js /site/websocket
 
 # Copy uwsgi config
