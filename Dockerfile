@@ -82,6 +82,9 @@ RUN chmod +x /wait
 # Install docker-entry
 COPY docker-entry /site
 
+# Generate styles
+RUN /site/make_style.sh
+
 EXPOSE 80
 EXPOSE 9999
 EXPOSE 9998
@@ -90,11 +93,4 @@ EXPOSE 15101
 EXPOSE 15102
 
 WORKDIR /site
-
-# Generate static content
-RUN ./make_style.sh
-RUN echo yes | python3 manage.py collectstatic
-RUN python3 manage.py compilemessages
-RUN python3 manage.py compilejsi18n
-
 ENTRYPOINT ["/site/docker-entry"]
