@@ -50,6 +50,9 @@ COPY site /site
 # Install utility so we can easily use docker secrets in local_settings.py
 RUN pip install --no-cache-dir get-docker-secret
 
+# Install recaptcha support
+RUN pip install --no-cache-dir django-recaptcha2
+
 # I don't know why these are here
 RUN pip install --no-cache-dir mysqlclient
 #RUN pip install --no-cache-dir "django_select2<7"
