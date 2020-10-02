@@ -90,4 +90,11 @@ EXPOSE 15101
 EXPOSE 15102
 
 WORKDIR /site
+
+# Generate static content
+RUN ./make_style.sh
+RUN echo yes | python3 manage.py collectstatic
+RUN python3 manage.py compilemessages
+RUN python3 manage.py compilejsi18n
+
 ENTRYPOINT ["/site/docker-entry"]
