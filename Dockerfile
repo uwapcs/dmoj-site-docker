@@ -79,12 +79,6 @@ RUN mkdir -p /problems/problems
 ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.5.0/wait /wait
 RUN chmod +x /wait
 
-# Install and run generate-static.sh
-COPY generate-static.sh /site
-WORKDIR /site
-RUN ./generate-static.sh
-WORKDIR /
-
 # Install docker-entry
 COPY docker-entry /site
 
@@ -96,4 +90,11 @@ EXPOSE 15101
 EXPOSE 15102
 
 WORKDIR /site
+
+# Generate static content
+RUN ./make_style.sh
+RUN echo yes | python3 manage.py collectstatic
+RUN python3 manage.py compilemessages
+RUN python3 manage.py compilejsi18n
+
 ENTRYPOINT ["/site/docker-entry"]
