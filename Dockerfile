@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   libxml2-dev \
   libxslt1-dev \
   make \
-  mysql-client \
+  default-mysql-client \
   nano \
   nginx \
   openssl \
