@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:buster
 
 # Install required packages and remove apt cache when done.
 RUN apt-get update && apt-get install -y --no-install-recommends \
