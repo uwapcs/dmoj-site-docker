@@ -8,7 +8,7 @@ jobs:
       with:
         submodules: recursive
     - name: Publish to Registry
-      uses: elgohr/Publish-Docker-Github-Action@master
+      uses: elgohr/Publish-Docker-Github-Action@v5
       with:
         name: uwapcs/dmoj-site
         username: ${{ secrets.DOCKER_USERNAME }}
