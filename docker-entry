@@ -11,6 +11,6 @@ python3 manage.py migrate --noinput
 
 service redis-server start
 
-/bin/bash -s # temporary command to hold open the container for debugging
+/usr/bin/supervisord -n
 
-#/usr/bin/supervisord -n
+/bin/bash -s # temporary command to hold open the container for debugging

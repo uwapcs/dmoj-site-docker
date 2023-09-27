@@ -17,7 +17,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	default-mysql-client \
 	pkg-config \
 	redis-server \
+	supervisor \
 	&& apt-get clean && rm -rf /var/bin/apt/lists/*
+
+# Install uwsgi now because it takes a little while
+RUN pip3 install --no-cache-dir --break-system-packages uwsgi
 
 # Install nodejs and packages
 RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - # TODO migrate
@@ -40,6 +44,12 @@ RUN pip3 install --no-cache-dir --break-system-packages django-recaptcha2 django
 
 # Install python redis for celery
 RUN pip3 install --no-cache-dir --break-system-packages redis
+
+# Copy uwsgi config
+COPY uwsgi /uwsgi
+
+# Copy supervisor configs
+COPY supervisor /etc/supervisor/conf.d
 
 # Prepare problem storage
 RUN mkdir -p /problems/pdfcache
