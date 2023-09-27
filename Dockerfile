@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	pkg-config \
 	redis-server \
 	supervisor \
+	nginx \
 	&& apt-get clean && rm -rf /var/bin/apt/lists/*
 
 # Install uwsgi now because it takes a little while
@@ -51,6 +52,9 @@ COPY uwsgi /uwsgi
 # Copy supervisor configs
 COPY supervisor /etc/supervisor/conf.d
 
+# Configure nginx
+COPY nginx/default /etc/nginx/sites-available/default
+
 # Prepare problem storage
 RUN mkdir -p /problems/pdfcache
 RUN mkdir -p /problems/problems
@@ -63,5 +67,12 @@ RUN chmod +x /wait
 COPY docker-entry /site/
 RUN chmod +x /site/docker-entry
 
+# Set workdir. Note: due to a change in Node 15, this must come before local npm install commands
 WORKDIR /site
+
+# Set up event server
+RUN npm install qu ws simplesets
+RUN pip3 install --no-cache-dir --break-system-packages websocket-client
+COPY websocket/config.js /site/websocket
+
 ENTRYPOINT ["/site/docker-entry"]
